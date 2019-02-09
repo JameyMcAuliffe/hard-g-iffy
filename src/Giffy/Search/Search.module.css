@@ -1,0 +1,22 @@
+.Search {
+	width: 50%;
+	height: 30px;
+	border: 4px lightblue solid;
+	border-radius: 5px;
+}
+
+.Div {
+	padding: 10px;
+	display: flex;
+	justify-content: center;
+}
+
+.Button {
+	background-color: lightblue;
+	color: black;
+	font: inherit;
+	font-weight: bold;
+	margin: 0px 10px;
+	cursor: pointer;
+	border-radius: 5px;
+}
