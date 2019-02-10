@@ -1,10 +1,16 @@
 import axios from 'axios';
 
-const ROOT_URL = 'http://api.giphy.com/v1/gifs/search?q=';
+const ROOT_URL = 'http://api.giphy.com/v1/gifs/';
 const API_KEY = 'WFYShEMluFwHlUXBJ7Kk7jhGbspo1CC7';
+const search = 'search?q=';
+const trending = 'trending?'
 
-let giphyCall = (input) => {
-	return axios.get(`${ROOT_URL}${input}&limit=25&api_key=${API_KEY}`);
+let giphySearch = (input) => {
+	return axios.get(`${ROOT_URL}${search}${input}&limit=25&api_key=${API_KEY}`);
 }
 
-export {giphyCall};
+let giphyTrending = () => {
+	return axios.get(`${ROOT_URL}${trending}&limit=50&api_key=${API_KEY}`);
+}
+
+export {giphySearch, giphyTrending};

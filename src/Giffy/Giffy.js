@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Search from './Search/Search';
 import Gifs from './Gifs/Gifs';
-import { giphyCall } from './Utils/API';
+import { giphySearch, giphyTrending } from './Utils/API';
 
 class Giffy extends Component {
 	state = {
@@ -10,11 +10,18 @@ class Giffy extends Component {
 		gifsArray: []
 	}
 
-	searchCall = () => {
-		giphyCall(this.state.userInput)
+	componentDidMount() {
+		giphyTrending()
 			.then(results => {
 				let giphyArray = results.data.data;
-				console.log(giphyArray);
+				this.setState({gifsArray: giphyArray});
+			});
+	}
+
+	searchCall = () => {
+		giphySearch(this.state.userInput)
+			.then(results => {
+				let giphyArray = results.data.data;
 				this.setState({gifsArray: giphyArray});
 			});
 		this.setState({userInput: ''});
