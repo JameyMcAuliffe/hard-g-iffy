@@ -14,6 +14,7 @@ class Giffy extends Component {
 		giphyTrending()
 			.then(results => {
 				let giphyArray = results.data.data;
+				console.log(giphyArray);
 				this.setState({gifsArray: giphyArray});
 			});
 	}

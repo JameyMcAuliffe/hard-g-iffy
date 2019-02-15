@@ -8,7 +8,7 @@ const header = () => (
 		<nav className={classes.Header}>
 			<h3>(Hard G)iffy</h3>
 			<ul>
-				<li>
+				<li className={classes.List}>
 					<Link to="/">Home</Link>
 				</li>
 			</ul>

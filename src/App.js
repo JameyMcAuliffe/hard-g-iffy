@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import './App.css';
 import Giffy from './Giffy/Giffy';
-import GifDetails from './Giffy/Gifs/GifDetails/GifDetails';
+//import GifDetails from './Giffy/Gifs/GifDetails/GifDetails';
 import Header from './Layout/Header/Header';
 import Footer from './Layout/Footer/Footer';
 
@@ -15,7 +15,7 @@ class App extends Component {
 	   			<Header />
 	   			<Switch>
 						<Route exact path="/" component={Giffy}/>
-						<Route exact path="/gif" component={GifDetails}/>
+						<Route exact path="/gif" component={Giffy}/>
 					</Switch>
 					<Footer />
 	      </div>
