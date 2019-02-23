@@ -6,7 +6,8 @@ import { getGifById } from '../../Utils/API';
 class GifDetails extends Component {
 
 	state = {
-		url: ''
+		url: '',
+		alt: ''
 	}
 
 	componentDidMount() {
@@ -15,13 +16,14 @@ class GifDetails extends Component {
 		getGifById(id)
 			.then(gif => {
 				let url = gif.data.data.images.original.url;
-				this.setState({url});
+				let alt = gif.data.data.title
+				this.setState({url, alt});
 			});
 	}
 
 	render() {
 		return (
-			<Gif url={this.state.url} alt="alt"/>
+			<Gif url={this.state.url} alt={this.state.alt}/>
 		);
 	}
 }

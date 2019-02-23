@@ -1,21 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 
 import classes from './Gif.module.css';
 
-const gif = (props) => {
-
-	let gifUrl = `/gif/${props.id}`;
-	
+const gif = (props) => {	
 		return (
-			<li className={classes.Gif}>
-				<Link to={gifUrl}>
+			<li className={classes.Gif}>	
 					<img 
 						src={props.url} 
-						alt={props.alt} 
-						onClick={props.clickedGif} 
+						alt={props.alt}  
 						id={props.id}/>
-				</Link>
 			</li> 
 		);
 	
@@ -23,5 +16,3 @@ const gif = (props) => {
 
 export default gif;
 
- 
-// <Link to="/gif"> </Link>
