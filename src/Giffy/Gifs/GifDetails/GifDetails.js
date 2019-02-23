@@ -1,9 +1,30 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import Gif from '../Gif/Gif';
+import { getGifById } from '../../Utils/API';
 
-const gifDetails = (props) => (
-	<Gif url={props.url} alt="alt"/>
-);
+class GifDetails extends Component {
 
-export default gifDetails;
+	state = {
+		url: ''
+	}
+
+	componentDidMount() {
+		let id = this.props.match.params.id;
+
+		getGifById(id)
+			.then(gif => {
+				let url = gif.data.data.images.original.url;
+				this.setState({url});
+			});
+	}
+
+	render() {
+		return (
+			<Gif url={this.state.url} alt="alt"/>
+		);
+	}
+}
+
+export default GifDetails;
+

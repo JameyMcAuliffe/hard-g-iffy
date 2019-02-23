@@ -1,31 +1,26 @@
 import React, { Component } from 'react';
 
 import Gif from './Gif/Gif';
-import GifDetails from './GifDetails/GifDetails';
+//import GifDetails from './GifDetails/GifDetails';
 import classes from './Gifs.module.css';
-import { getGifById } from '../Utils/API';
+
 
 
 class Gifs extends Component {
 
-	state = {
-		fullUrl: null,
-		showGif: false
-	}
+	// state = {
+	// 	fullUrl: null,
+	// 	showGif: false
+	// }
 
-	gifClick = (e) => {
-		let id = e.target.id;
-		let showGif = true;
+	//gifClick = (e) => {
+		//let id = e.target.id;
+		//let showGif = true;
 		
-		getGifById(id)
-			.then(gif => {
-				let fullUrl = gif.data.data.images.original.url;
-				this.setState({
-					showGif, fullUrl
-				});
+		
 
-			});
-	}
+		// 	});
+	//}
 
 	render() {
 		let gifs = this.props.gifsArray.map((g => {
@@ -44,10 +39,13 @@ class Gifs extends Component {
 
 		return (
 			<div>
-				{!this.state.showGif ? gifList : <GifDetails url={this.state.fullUrl} alt="altern"/>}
+				{gifList}
 			</div>
 		);
 	}
 }
 
 export default Gifs;
+
+
+// {!this.state.showGif ? gifList : <GifDetails url={this.state.fullUrl} alt="altern"/>}
