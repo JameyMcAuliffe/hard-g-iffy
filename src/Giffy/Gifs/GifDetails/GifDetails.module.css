@@ -1,0 +1,21 @@
+.GifDetails {
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.Gif {
+	background-color: lightblue;
+	padding: 15px;
+	list-style-type: none;
+	border-radius: 5%;
+}
+
+.Input {
+	width: 50%;
+}
+
+.Button {
+	margin-right: 5px;
+}
