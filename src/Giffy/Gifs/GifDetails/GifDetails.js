@@ -49,12 +49,15 @@ class GifDetails extends Component {
 			<div className={classes.GifDetails}>
 				<div className={classes.Gif}>
 					<Gif url={this.state.url} alt={this.state.alt}/>
-					<button className={classes.Button}
-									onClick={this.copyUrlToClipboard}>{!this.state.copied ? 'Copy' : 'Copied'}</button><input 
-																			type="text" 
-																			className={classes.Input} 
-																			value={this.state.url} 
-																			readOnly/>
+					<div style={{height: '20px'}}>
+						{!this.state.copied ? 
+							<button 
+								className={classes.Button}
+								onClick={this.copyUrlToClipboard}>Copy Link</button> 
+							: <span 
+									role="img"
+									aria-label="jsx-a11y/accessible-emoji">&#9989;</span>}
+					</div>
 				</div>
 			</div>
 		);
@@ -62,5 +65,7 @@ class GifDetails extends Component {
 }
 
 export default GifDetails;
+
+//<input type="text" className={classes.Input} value={this.state.url} readOnly/>
 
 

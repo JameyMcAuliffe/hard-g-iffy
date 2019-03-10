@@ -7,16 +7,42 @@ import { giphySearch, giphyTrending } from './Utils/API';
 class Giffy extends Component {
 	state = {
 		userInput: '',
-		gifsArray: []
+		gifsArray: [],
+		partialArray: [],
+		numDisplayed: 20
 	}
 
+	//state for full array and partial array
 	componentDidMount() {
 		giphyTrending()
 			.then(results => {
 				let giphyArray = results.data.data;
-				console.log(giphyArray);
-				this.setState({gifsArray: giphyArray});
+				let partialArray = [];
+				for(let i = 0; i < this.state.numDisplayed; i++) {
+					partialArray.push(giphyArray[i]);
+				}
+				console.log('partialArray: ', partialArray);
+				console.log('giphyArray: ', giphyArray);
+				this.setState({
+					gifsArray: giphyArray,
+					partialArray: partialArray
+				});
 			});
+	}
+
+	componentDidUpdate() {
+		if(this.state.numDisplayed > this.state.partialArray.length) {
+			let addedPartialArray = [];
+			for(let i = 0; i < this.state.numDisplayed; i++) {
+				addedPartialArray.push(this.state.gifsArray[i]);
+			}
+			this.setState({partialArray: addedPartialArray});
+		}
+	}
+
+	showMore = () => {
+		let newNumDisplayed = this.state.numDisplayed + 20;
+		this.setState({numDisplayed: newNumDisplayed});
 	}
 
 	searchCall = () => {
@@ -40,7 +66,8 @@ class Giffy extends Component {
 					 searchCall={this.searchCall}
 					 updateInput={this.updateInput}
 					 value={this.state.userInput}/>
-				<Gifs gifsArray={this.state.gifsArray}/>
+				<Gifs gifsArray={this.state.partialArray}/>
+				<button onClick={this.showMore}>More</button>
 			</div>
 		);
 	}
