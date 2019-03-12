@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Search from './Search/Search';
 import Gifs from './Gifs/Gifs';
-import { giphySearch, giphyTrending } from './Utils/API';
+import { giphyTrending } from './Utils/API';
 
 class Giffy extends Component {
 	state = {
@@ -12,7 +12,6 @@ class Giffy extends Component {
 		numDisplayed: 20
 	}
 
-	//state for full array and partial array
 	componentDidMount() {
 		giphyTrending()
 			.then(results => {
@@ -21,8 +20,6 @@ class Giffy extends Component {
 				for(let i = 0; i < this.state.numDisplayed; i++) {
 					partialArray.push(giphyArray[i]);
 				}
-				console.log('partialArray: ', partialArray);
-				console.log('giphyArray: ', giphyArray);
 				this.setState({
 					gifsArray: giphyArray,
 					partialArray: partialArray
@@ -45,15 +42,6 @@ class Giffy extends Component {
 		this.setState({numDisplayed: newNumDisplayed});
 	}
 
-	searchCall = () => {
-		giphySearch(this.state.userInput)
-			.then(results => {
-				let giphyArray = results.data.data;
-				this.setState({gifsArray: giphyArray});
-			});
-		this.setState({userInput: ''});
-	}
-
 	updateInput = (e) => {
 		let updatedInput = e.target.value;
 		this.setState({userInput: updatedInput});
@@ -63,7 +51,6 @@ class Giffy extends Component {
 		return (
 			<div>
 				<Search
-					 searchCall={this.searchCall}
 					 updateInput={this.updateInput}
 					 value={this.state.userInput}/>
 				<Gifs gifsArray={this.state.partialArray}/>
@@ -74,3 +61,14 @@ class Giffy extends Component {
 }
 
 export default Giffy;
+
+// searchCall={this.searchCall}
+
+// searchCall = () => {
+	// 	giphySearch(this.state.userInput)
+	// 		.then(results => {
+	// 			let giphyArray = results.data.data;
+	// 			this.setState({gifsArray: giphyArray});
+	// 		});
+	// 	this.setState({userInput: ''});
+	// }
