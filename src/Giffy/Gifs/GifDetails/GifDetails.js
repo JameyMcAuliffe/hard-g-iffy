@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Gif from '../Gif/Gif';
 import { getGifById } from '../../Utils/API';
+import Expand from '../../Utils/Expand/Expand';
 import classes from './GifDetails.module.css';
 
 class GifDetails extends Component {
@@ -49,7 +50,7 @@ class GifDetails extends Component {
 			<div className={classes.GifDetails}>
 				<div className={classes.Gif}>
 					<Gif url={this.state.url} alt={this.state.alt}/>
-					<div style={{height: '20px'}}>
+					<div style={{height: '20px', marginBottom: '50px'}}>
 						{!this.state.copied ? 
 							<button 
 								className={classes.Button}
@@ -58,6 +59,7 @@ class GifDetails extends Component {
 									role="img"
 									aria-label="jsx-a11y/accessible-emoji">&#9989;</span>}
 					</div>
+					<Expand description="Find Similar"/>
 				</div>
 			</div>
 		);

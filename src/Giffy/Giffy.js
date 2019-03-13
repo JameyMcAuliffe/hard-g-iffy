@@ -4,7 +4,6 @@ import Search from './Search/Search';
 import Gifs from './Gifs/Gifs';
 import Expand from './Utils/Expand/Expand';
 import { giphyTrending } from './Utils/API';
-import expandArrow from '../assets/images/expand.png';
 
 class Giffy extends Component {
 	state = {
@@ -43,6 +42,9 @@ class Giffy extends Component {
 	showMore = () => {
 		let newNumDisplayed = this.state.numDisplayed + 20;
 		this.setState({numDisplayed: newNumDisplayed});
+		if(this.state.numDisplayed >= 180) {
+			this.setState({showExpand: false});
+		}
 	}
 
 	updateInput = (e) => {
@@ -57,23 +59,10 @@ class Giffy extends Component {
 					 updateInput={this.updateInput}
 					 value={this.state.userInput}/>
 				<Gifs gifsArray={this.state.partialArray}/>
-				{this.state.showExpand ? <Expand expand={this.showMore} src={expandArrow} alt="expand arrow" description="More"/> : null}
+				{this.state.showExpand ? <Expand expand={this.showMore} description="More"/> : null}
 			</div>
 		);
 	}
 }
 
 export default Giffy;
-
-// searchCall={this.searchCall}
-
-// searchCall = () => {
-	// 	giphySearch(this.state.userInput)
-	// 		.then(results => {
-	// 			let giphyArray = results.data.data;
-	// 			this.setState({gifsArray: giphyArray});
-	// 		});
-	// 	this.setState({userInput: ''});
-	// }
-
-	// <button onClick={this.showMore}>More</button>
