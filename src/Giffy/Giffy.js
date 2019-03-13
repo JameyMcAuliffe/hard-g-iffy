@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 
 import Search from './Search/Search';
 import Gifs from './Gifs/Gifs';
+import Expand from './Utils/Expand/Expand';
 import { giphyTrending } from './Utils/API';
+import expandArrow from '../assets/images/expand.png';
 
 class Giffy extends Component {
 	state = {
 		userInput: '',
 		gifsArray: [],
 		partialArray: [],
-		numDisplayed: 20
+		numDisplayed: 20,
+		showExpand: true
 	}
 
 	componentDidMount() {
@@ -54,7 +57,7 @@ class Giffy extends Component {
 					 updateInput={this.updateInput}
 					 value={this.state.userInput}/>
 				<Gifs gifsArray={this.state.partialArray}/>
-				<button onClick={this.showMore}>More</button>
+				{this.state.showExpand ? <Expand expand={this.showMore} src={expandArrow} alt="expand arrow" description="More"/> : null}
 			</div>
 		);
 	}
@@ -72,3 +75,5 @@ export default Giffy;
 	// 		});
 	// 	this.setState({userInput: ''});
 	// }
+
+	// <button onClick={this.showMore}>More</button>

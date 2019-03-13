@@ -32,5 +32,3 @@ class Gifs extends Component {
 
 export default Gifs;
 
-
-// {!this.state.showGif ? gifList : <GifDetails url={this.state.fullUrl} alt="altern"/>}

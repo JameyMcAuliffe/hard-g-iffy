@@ -22,5 +22,3 @@ const search = (props) => {
 }
 
 export default search;
-
-// onClick={props.searchCall}
