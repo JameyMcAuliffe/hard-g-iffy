@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
 import Gif from '../Gif/Gif';
-import { getGifById } from '../../Utils/API';
+import Gifs from '../Gifs';
+import { getGifById, giphySearch } from '../../Utils/API';
 import Expand from '../../Utils/Expand/Expand';
 import classes from './GifDetails.module.css';
 
@@ -10,7 +11,14 @@ class GifDetails extends Component {
 	state = {
 		url: '',
 		alt: '',
-		copied: false
+		copied: false,
+		similarQuery: null,
+		gifsArray: [],
+		partialArray: [],
+		numDisplayed: 20,
+		addedGifs: 20,
+		showExpand: true,
+		showSimilar: true
 	}
 
 	componentDidMount() {
@@ -20,9 +28,28 @@ class GifDetails extends Component {
 			.then(gif => {
 				console.log('gif: ', gif);
 				let url = gif.data.data.images.original.url;
-				let alt = gif.data.data.title
-				this.setState({url, alt});
+				let alt = gif.data.data.title;
+				let similarQuery = gif.data.data.title;
+				this.setState({url, alt, similarQuery});
 			});
+	}
+
+	componentDidUpdate() {
+		if(this.state.numDisplayed > this.state.partialArray.length) {
+			let addedPartialArray = [];
+			for(let i = 0; i < this.state.numDisplayed; i++) {
+				addedPartialArray.push(this.state.gifsArray[i]);
+			}
+			this.setState({partialArray: addedPartialArray});
+		}
+	}
+
+	showMore = () => {
+		let newNumDisplayed = this.state.numDisplayed + this.state.addedGifs;
+		this.setState({numDisplayed: newNumDisplayed});
+		if(this.state.numDisplayed >= this.state.gifsArray.length - this.state.addedGifs) {
+			this.setState({showExpand: false});
+		}
 	}
 
 	copyUrlToClipboard = () => {
@@ -45,9 +72,26 @@ class GifDetails extends Component {
     }, 1000)
 	}
 
+	findSimilar = () => {
+		giphySearch(this.state.similarQuery)
+			.then(results => {
+				let giphyArray = results.data.data;
+				let partialArray = [];
+				for(let i = 0; i < this.state.numDisplayed; i++) {
+					partialArray.push(giphyArray[i]);
+				}
+				this.setState({
+					gifsArray: giphyArray,
+					partialArray: partialArray,
+					showSimilar: false
+				});
+			});
+
+	}
+
 	render() {
 		return (
-			<div className={classes.GifDetails}>
+			<div className={this.state.showSimilar ? classes.GifDetails_1 : classes.GifDetails_2}>
 				<div className={classes.Gif}>
 					<Gif url={this.state.url} alt={this.state.alt}/>
 					<div style={{height: '20px', marginBottom: '50px'}}>
@@ -59,7 +103,9 @@ class GifDetails extends Component {
 									role="img"
 									aria-label="jsx-a11y/accessible-emoji">&#9989;</span>}
 					</div>
-					<Expand description="Find Similar"/>
+					
+					{!this.state.showSimilar ? <Gifs gifsArray={this.state.partialArray}/> : <Expand description="Find Similar" expand={this.findSimilar}/>}
+					{!this.state.showSimilar && this.state.showExpand ? <Expand description="More" expand={this.showMore}/> : null}
 				</div>
 			</div>
 		);

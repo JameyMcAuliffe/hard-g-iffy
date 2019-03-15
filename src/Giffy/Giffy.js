@@ -11,6 +11,7 @@ class Giffy extends Component {
 		gifsArray: [],
 		partialArray: [],
 		numDisplayed: 20,
+		addedGifs: 20,
 		showExpand: true
 	}
 
@@ -40,9 +41,9 @@ class Giffy extends Component {
 	}
 
 	showMore = () => {
-		let newNumDisplayed = this.state.numDisplayed + 20;
+		let newNumDisplayed = this.state.numDisplayed + this.state.addedGifs;
 		this.setState({numDisplayed: newNumDisplayed});
-		if(this.state.numDisplayed >= 180) {
+		if(this.state.numDisplayed >= this.state.gifsArray.length - this.state.addedGifs) {
 			this.setState({showExpand: false});
 		}
 	}
