@@ -11,6 +11,7 @@ class GifDetails extends Component {
 	state = {
 		url: '',
 		alt: '',
+		id: '',
 		copied: false,
 		similarQuery: null,
 		gifsArray: [],
@@ -24,17 +25,32 @@ class GifDetails extends Component {
 	componentDidMount() {
 		let id = this.props.match.params.id;
 
+		console.log('props:', this.props);
+
 		getGifById(id)
 			.then(gif => {
-				console.log('gif: ', gif);
+				let url = gif.data.data.images.original.url;
+				let alt = gif.data.data.title;
+				let similarQuery = gif.data.data.title;
+				this.setState({url, alt, similarQuery, id});
+			});
+	}
+
+	componentDidUpdate() {
+		let id = this.props.match.params.id;
+
+		if (this.state.id !== id) {
+			this.setState({showSimilar: true, id});
+		}
+
+		getGifById(id)
+			.then(gif => {
 				let url = gif.data.data.images.original.url;
 				let alt = gif.data.data.title;
 				let similarQuery = gif.data.data.title;
 				this.setState({url, alt, similarQuery});
 			});
-	}
 
-	componentDidUpdate() {
 		if(this.state.numDisplayed > this.state.partialArray.length) {
 			let addedPartialArray = [];
 			for(let i = 0; i < this.state.numDisplayed; i++) {
