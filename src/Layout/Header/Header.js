@@ -4,16 +4,11 @@ import { Link } from 'react-router-dom';
 import classes from './Header.module.css';
 
 const header = () => (
-	<header className={classes.Header}>
-		<nav>
-			
-			<ul>
-				<li className={classes.List}>
-					<Link to="/">Home</Link>
-				</li>
-			</ul>
-		</nav>
-	</header>
+	<nav className={classes.Header}>
+		<Link to="/">
+			<h3 className={classes.Text}>(Hard G)-iffy</h3>
+		</Link>
+	</nav>
 );
 
 export default header;

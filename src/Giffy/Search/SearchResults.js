@@ -15,7 +15,8 @@ class SearchResults extends Component {
 	}
 
 	componentDidMount() {
-		let searchQuery = this.props.match.params.query.split('-').join(' ');
+		let searchQuery = this.props.match.params.query.split('-').join(' ') || "";
+		console.log(this.props);
 		giphySearch(searchQuery)
 			.then(results => {
 				let giphyArray = results.data.data;

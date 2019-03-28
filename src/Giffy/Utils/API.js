@@ -6,7 +6,11 @@ const SEARCH = 'search?q=';
 const TRENDING = 'trending?'
 
 let giphySearch = (input) => {
-	return axios.get(`${ROOT_URL}${SEARCH}${input}&limit=200&api_key=${API_KEY}`);
+	if (input.trim() === "") {
+		return giphyTrending();
+	} else {
+		return axios.get(`${ROOT_URL}${SEARCH}${input}&limit=200&api_key=${API_KEY}`);
+	}
 }
 
 let giphyTrending = () => {

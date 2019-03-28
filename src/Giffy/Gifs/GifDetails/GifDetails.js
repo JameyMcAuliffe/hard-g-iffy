@@ -19,13 +19,12 @@ class GifDetails extends Component {
 		numDisplayed: 20,
 		addedGifs: 20,
 		showExpand: true,
-		showSimilar: true
+		showSimilar: true,
+		noMatchesFound: false
 	}
 
 	componentDidMount() {
 		let id = this.props.match.params.id;
-
-		console.log('props:', this.props);
 
 		getGifById(id)
 			.then(gif => {
@@ -41,15 +40,17 @@ class GifDetails extends Component {
 
 		if (this.state.id !== id) {
 			this.setState({showSimilar: true, id});
-		}
-
-		getGifById(id)
+			
+			getGifById(id)
 			.then(gif => {
 				let url = gif.data.data.images.original.url;
 				let alt = gif.data.data.title;
 				let similarQuery = gif.data.data.title;
 				this.setState({url, alt, similarQuery});
-			});
+			});	
+		}
+
+		
 
 		if(this.state.numDisplayed > this.state.partialArray.length) {
 			let addedPartialArray = [];
@@ -66,6 +67,22 @@ class GifDetails extends Component {
 		if(this.state.numDisplayed >= this.state.gifsArray.length - this.state.addedGifs) {
 			this.setState({showExpand: false});
 		}
+	}
+
+	findSimilar = () => {
+			giphySearch(this.state.similarQuery)
+			.then(results => {
+				let giphyArray = results.data.data;
+				let partialArray = [];
+				for(let i = 0; i < this.state.numDisplayed; i++) {
+					partialArray.push(giphyArray[i]);
+				}
+				this.setState({
+					gifsArray: giphyArray,
+					partialArray: partialArray,
+					showSimilar: false
+				});
+			});
 	}
 
 	copyUrlToClipboard = () => {
@@ -88,23 +105,6 @@ class GifDetails extends Component {
     }, 1000)
 	}
 
-	findSimilar = () => {
-		giphySearch(this.state.similarQuery)
-			.then(results => {
-				let giphyArray = results.data.data;
-				let partialArray = [];
-				for(let i = 0; i < this.state.numDisplayed; i++) {
-					partialArray.push(giphyArray[i]);
-				}
-				this.setState({
-					gifsArray: giphyArray,
-					partialArray: partialArray,
-					showSimilar: false
-				});
-			});
-
-	}
-
 	render() {
 		return (
 			<div className={this.state.showSimilar ? classes.GifDetails_1 : classes.GifDetails_2}>
@@ -119,7 +119,6 @@ class GifDetails extends Component {
 									role="img"
 									aria-label="jsx-a11y/accessible-emoji">&#9989;</span>}
 					</div>
-					
 					{!this.state.showSimilar ? <Gifs gifsArray={this.state.partialArray}/> : <Expand description="Find Similar" expand={this.findSimilar}/>}
 					{!this.state.showSimilar && this.state.showExpand ? <Expand description="More" expand={this.showMore}/> : null}
 				</div>
@@ -130,6 +129,5 @@ class GifDetails extends Component {
 
 export default GifDetails;
 
-//<input type="text" className={classes.Input} value={this.state.url} readOnly/>
 
 

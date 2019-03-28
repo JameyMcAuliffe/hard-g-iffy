@@ -5,7 +5,11 @@ import classes from './Search.module.css';
 
 
 const search = (props) => {
+	let disabled = true;
 	let query = props.value.split(' ').join('-');
+	if(query.trim() !== "") {
+		disabled = false;
+	}
 	let searchLink = `search/${query}`;
 
 	return (
@@ -16,7 +20,7 @@ const search = (props) => {
 				placeholder="What are you looking for?"
 				onChange={props.updateInput}
 				value={props.value}></input>
-			<Link to={searchLink}><button className={classes.Button}>Search</button></Link>
+			<Link to={searchLink}><button className={classes.Button} disabled={disabled}>Search</button></Link>
 		</div>
 	);
 }
