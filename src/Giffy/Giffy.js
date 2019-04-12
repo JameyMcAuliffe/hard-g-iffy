@@ -4,6 +4,7 @@ import Search from './Search/Search';
 import Gifs from './Gifs/Gifs';
 import Expand from './Utils/Expand/Expand';
 import { giphyTrending } from './Utils/API';
+import classes from './Giffy.module.css';
 
 class Giffy extends Component {
 	state = {
@@ -55,7 +56,7 @@ class Giffy extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className={this.state.partialArray.length === 0 ? classes.Loading : null}>
 				<Search
 					 updateInput={this.updateInput}
 					 value={this.state.userInput}/>

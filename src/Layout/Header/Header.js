@@ -5,7 +5,7 @@ import classes from './Header.module.css';
 
 const header = () => (
 	<nav className={classes.Header}>
-		<Link to="/">
+		<Link to="/" className={classes.Link}>
 			<h3 className={classes.Text}>(Hard G)-iffy</h3>
 		</Link>
 	</nav>

@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 
 import Gifs from '../Gifs/Gifs';
 import Expand from '../Utils/Expand/Expand';
+import Nav from '../../Layout/Nav/Nav';
 import { giphySearch } from '../Utils/API';
+import classes from './SearchResults.module.css';
 
 class SearchResults extends Component {
 
@@ -14,9 +16,9 @@ class SearchResults extends Component {
 		showExpand: true
 	}
 
+	
 	componentDidMount() {
 		let searchQuery = this.props.match.params.query.split('-').join(' ') || "";
-		console.log(this.props);
 		giphySearch(searchQuery)
 			.then(results => {
 				let giphyArray = results.data.data;
@@ -53,8 +55,11 @@ class SearchResults extends Component {
 
 		return(
 			<div>
-				<Gifs gifsArray={this.state.partialArray}/>
-				{this.state.showExpand ? <Expand expand={this.showMore} description="More"/> : null}
+				<Nav title="Home" url="/"/>
+				<div className={this.state.partialArray.length === 0 ? classes.Loading : null}>
+					<Gifs gifsArray={this.state.partialArray}/>
+					{this.state.showExpand ? <Expand expand={this.showMore} description="More"/> : null}
+				</div>
 			</div>
 		);
 	}

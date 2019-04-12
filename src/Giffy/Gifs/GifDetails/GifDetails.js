@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Gif from '../Gif/Gif';
 import Gifs from '../Gifs';
+import Nav from '../../../Layout/Nav/Nav';
 import { getGifById, giphySearch } from '../../Utils/API';
 import Expand from '../../Utils/Expand/Expand';
 import classes from './GifDetails.module.css';
@@ -107,20 +108,23 @@ class GifDetails extends Component {
 
 	render() {
 		return (
-			<div className={this.state.showSimilar ? classes.GifDetails_1 : classes.GifDetails_2}>
-				<div className={classes.Gif}>
-					<Gif url={this.state.url} alt={this.state.alt}/>
-					<div style={{height: '20px', marginBottom: '50px'}}>
-						{!this.state.copied ? 
-							<button 
-								className={classes.Button}
-								onClick={this.copyUrlToClipboard}>Copy Link</button> 
-							: <span 
-									role="img"
-									aria-label="jsx-a11y/accessible-emoji">&#9989;</span>}
+			<div>
+				<Nav title="Home" url="/"/>
+				<div className={this.state.showSimilar ? classes.GifDetails_1 : classes.GifDetails_2}>
+					<div className={classes.Gif}>
+						<Gif url={this.state.url} alt={this.state.alt}/>
+						<div style={{height: '20px', marginBottom: '50px'}}>
+							{!this.state.copied ? 
+								<button 
+									className={classes.Button}
+									onClick={this.copyUrlToClipboard}>Copy Link</button> 
+								: <span 
+										role="img"
+										aria-label="jsx-a11y/accessible-emoji">&#9989;</span>}
+						</div>
+						{!this.state.showSimilar ? <Gifs gifsArray={this.state.partialArray}/> : <Expand description="Find Similar" expand={this.findSimilar}/>}
+						{!this.state.showSimilar && this.state.showExpand ? <Expand description="More" expand={this.showMore}/> : null}
 					</div>
-					{!this.state.showSimilar ? <Gifs gifsArray={this.state.partialArray}/> : <Expand description="Find Similar" expand={this.findSimilar}/>}
-					{!this.state.showSimilar && this.state.showExpand ? <Expand description="More" expand={this.showMore}/> : null}
 				</div>
 			</div>
 		);

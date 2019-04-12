@@ -1,0 +1,15 @@
+
+
+.Nav {
+	display: flex;
+	width: 100%;
+	/*border-bottom: 2px solid #86aeff;*/
+	justify-content: center;
+}
+
+.Link {
+	color: #86aeff;
+	text-decoration: none;
+}
+
+
