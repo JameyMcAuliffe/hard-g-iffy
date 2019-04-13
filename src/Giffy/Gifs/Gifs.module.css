@@ -3,4 +3,11 @@
 	flex-flow: row;
 	flex-wrap: wrap;
 	list-style-type: none;
+	justify-content: center;
+}
+
+@media (max-width: 500px){
+	.Gifs {
+		flex-direction: column;
+	}
 }

@@ -5,6 +5,7 @@ import Gifs from '../Gifs';
 import Nav from '../../../Layout/Nav/Nav';
 import { getGifById, giphySearch } from '../../Utils/API';
 import Expand from '../../Utils/Expand/Expand';
+import CheckUrl from '../../../assets/images/check.png';
 import classes from './GifDetails.module.css';
 
 class GifDetails extends Component {
@@ -86,6 +87,7 @@ class GifDetails extends Component {
 			});
 	}
 
+	//a lot of code to copy gif link to clipboard
 	copyUrlToClipboard = () => {
 		let el = document.createElement('textarea');
 		el.value = this.state.url;
@@ -118,9 +120,7 @@ class GifDetails extends Component {
 								<button 
 									className={classes.Button}
 									onClick={this.copyUrlToClipboard}>Copy Link</button> 
-								: <span 
-										role="img"
-										aria-label="jsx-a11y/accessible-emoji">&#9989;</span>}
+								: <img src={CheckUrl} alt="check-mark" style={{"width": "45px"}}/>}
 						</div>
 						{!this.state.showSimilar ? <Gifs gifsArray={this.state.partialArray}/> : <Expand description="Find Similar" expand={this.findSimilar}/>}
 						{!this.state.showSimilar && this.state.showExpand ? <Expand description="More" expand={this.showMore}/> : null}
@@ -132,6 +132,4 @@ class GifDetails extends Component {
 }
 
 export default GifDetails;
-
-
 

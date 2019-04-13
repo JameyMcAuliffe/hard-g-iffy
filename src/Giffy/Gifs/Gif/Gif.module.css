@@ -1,3 +1,9 @@
-.Gif {
+.List {
 	padding: 10px 10px;
+}
+
+@media (max-width: 500px){
+	.Gif {
+		max-width: 300px;
+	}
 }

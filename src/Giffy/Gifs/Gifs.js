@@ -23,7 +23,7 @@ class Gifs extends Component {
 		let gifList = <ul className={classes.Gifs}>{gifs}</ul>;
 
 		return (
-			<div>
+			<div className={classes.Gifs}>
 				{gifList}
 			</div>
 		);

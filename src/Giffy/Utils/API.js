@@ -6,6 +6,7 @@ const SEARCH = 'search?q=';
 const TRENDING = 'trending?'
 
 let giphySearch = (input) => {
+	//returns Trending search if no title present for find similar query
 	if (input.trim() === "") {
 		return giphyTrending();
 	} else {
