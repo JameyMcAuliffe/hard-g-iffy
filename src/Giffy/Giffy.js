@@ -58,7 +58,12 @@ class Giffy extends Component {
 
 	updateInput = (e) => {
 		let updatedInput = e.target.value;
-		this.setState({userInput: updatedInput});
+		if(updatedInput.includes('/')) {
+			let newUpdatedInput = updatedInput.split('/').join(' ');
+			this.setState({userInput: newUpdatedInput});
+		} else {
+			this.setState({userInput: updatedInput});
+		}
 	}
 
 	render() {

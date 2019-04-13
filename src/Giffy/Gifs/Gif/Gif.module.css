@@ -4,6 +4,7 @@
 
 @media (max-width: 500px){
 	.Gif {
-		max-width: 300px;
+		max-width: 90%;
+		margin-bottom: 15px;
 	}
 }

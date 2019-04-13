@@ -17,6 +17,7 @@ class App extends Component {
 	   			<Switch>
 						<Route exact path="/" component={Giffy}/>
 						<Route exact path="/search/:query" component={SearchResults}/>
+						<Route exact path="/search/" component={SearchResults}/>
 						<Route exact path="/gif/:id" component={GifDetails}/>
 					</Switch>
 					<Footer />
