@@ -6,13 +6,14 @@ import Nav from '../../Layout/Nav/Nav';
 import { giphySearch } from '../Utils/API';
 import classes from './SearchResults.module.css';
 
+const ADDED_GIFS = 20;
+
 class SearchResults extends Component {
 
-	state={
+	state = {
 		gifsArray: [],
 		partialArray: [],
 		numDisplayed: 20,
-		addedGifs: 20,
 		showExpand: true,
 		showNoResults: false
 	}
@@ -21,7 +22,7 @@ class SearchResults extends Component {
 	componentDidMount() {
 		//check to make sure query exists
 		if(this.props.match.params.query) {
-			let searchQuery = this.props.match.params.query.split('-').join(' ') || "";
+			let searchQuery = this.props.match.params.query.split('-').join(' ');
 			giphySearch(searchQuery)
 				.then(results => {
 					let giphyArray = results.data.data;
@@ -57,9 +58,9 @@ class SearchResults extends Component {
 	}
 
 	showMore = () => {
-		let newNumDisplayed = this.state.numDisplayed + this.state.addedGifs;
+		let newNumDisplayed = this.state.numDisplayed + ADDED_GIFS;
 		this.setState({numDisplayed: newNumDisplayed});
-		if(this.state.numDisplayed >= this.state.gifsArray.length - this.state.addedGifs) {
+		if(this.state.numDisplayed >= this.state.gifsArray.length - ADDED_GIFS) {
 			this.setState({showExpand: false});
 		}
 	}

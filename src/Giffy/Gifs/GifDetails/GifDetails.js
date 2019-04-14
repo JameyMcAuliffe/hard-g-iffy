@@ -8,6 +8,8 @@ import Expand from '../../Utils/Expand/Expand';
 import CheckUrl from '../../../assets/images/check.png';
 import classes from './GifDetails.module.css';
 
+const ADDED_GIFS = 20;
+
 class GifDetails extends Component {
 
 	state = {
@@ -19,7 +21,6 @@ class GifDetails extends Component {
 		gifsArray: [],
 		partialArray: [],
 		numDisplayed: 20,
-		addedGifs: 20,
 		showExpand: true,
 		showSimilar: true,
 		noMatchesFound: false
@@ -40,6 +41,7 @@ class GifDetails extends Component {
 	componentDidUpdate() {
 		let id = this.props.match.params.id;
 
+		//checks to make sure a new gif has been selected
 		if (this.state.id !== id) {
 			this.setState({showSimilar: true, id});
 			
@@ -52,8 +54,6 @@ class GifDetails extends Component {
 			});	
 		}
 
-		
-
 		if(this.state.numDisplayed > this.state.partialArray.length) {
 			let addedPartialArray = [];
 			for(let i = 0; i < this.state.numDisplayed; i++) {
@@ -64,9 +64,9 @@ class GifDetails extends Component {
 	}
 
 	showMore = () => {
-		let newNumDisplayed = this.state.numDisplayed + this.state.addedGifs;
+		let newNumDisplayed = this.state.numDisplayed + ADDED_GIFS;
 		this.setState({numDisplayed: newNumDisplayed});
-		if(this.state.numDisplayed >= this.state.gifsArray.length - this.state.addedGifs) {
+		if(this.state.numDisplayed >= this.state.gifsArray.length - ADDED_GIFS) {
 			this.setState({showExpand: false});
 		}
 	}

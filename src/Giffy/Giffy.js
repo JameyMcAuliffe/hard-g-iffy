@@ -6,13 +6,14 @@ import Expand from './Utils/Expand/Expand';
 import { giphyTrending } from './Utils/API';
 import classes from './Giffy.module.css';
 
+const ADDED_GIFS = 20;
+
 class Giffy extends Component {
 	state = {
 		userInput: '',
 		gifsArray: [],
 		partialArray: [],
 		numDisplayed: 20,
-		addedGifs: 20,
 		showExpand: true
 	}
 
@@ -48,16 +49,17 @@ class Giffy extends Component {
 
 	showMore = () => {
 		//adds 20 to numDisplayed
-		let newNumDisplayed = this.state.numDisplayed + this.state.addedGifs;
+		let newNumDisplayed = this.state.numDisplayed + ADDED_GIFS;
 		this.setState({numDisplayed: newNumDisplayed});
 		//check to protect against trying to display more gifs than in full array
-		if(this.state.numDisplayed >= this.state.gifsArray.length - this.state.addedGifs) {
+		if(this.state.numDisplayed >= this.state.gifsArray.length - ADDED_GIFS) {
 			this.setState({showExpand: false});
 		}
 	}
 
 	updateInput = (e) => {
 		let updatedInput = e.target.value;
+		//removes forward slash from search attempts
 		if(updatedInput.includes('/')) {
 			let newUpdatedInput = updatedInput.split('/').join(' ');
 			this.setState({userInput: newUpdatedInput});
