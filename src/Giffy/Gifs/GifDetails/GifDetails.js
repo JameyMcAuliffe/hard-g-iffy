@@ -28,7 +28,6 @@ class GifDetails extends Component {
 
 	componentDidMount() {
 		let id = this.props.match.params.id;
-		console.log(this.props);
 
 		getGifById(id)
 			.then(gif => {
